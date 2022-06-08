@@ -1,5 +1,4 @@
-from telnetlib import SE
-from unittest.util import _MAX_LENGTH
+from django.conf import settings
 from django.db import models
 
 # Create your models here.
@@ -34,6 +33,24 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+class OrderItem(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
+    ordered = models.BooleanField(default=False)
+    item = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    product = models.CharField(max_length=100, null=True, blank=True)
+    price = models.FloatField(null=True, blank=True)
+    quantity = models.IntegerField(default=1)
+    total_price = models.FloatField(default=0)
+    note = models.CharField(max_length=200, null=True, blank=True)
+    ordered_date = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.name
+    
+
+
+
 
 
     
