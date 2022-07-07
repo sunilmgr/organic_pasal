@@ -1,8 +1,3 @@
-from collections import OrderedDict
-from itertools import product
-from telnetlib import SE
-from typing_extensions import Self
-from unittest.util import _MAX_LENGTH
 from django.conf import settings
 from django.db import models
 from pytz import timezone
@@ -49,6 +44,7 @@ class OrderItem(models.Model):
     quantity = models.IntegerField(default=1)
     total_price = models.FloatField(default=0)
     note = models.CharField(max_length=200, null=True, blank=True)
+<<<<<<< HEAD
     # extra items added by user many to fields to add multiple type of extra toppings 
     extra_products = models.ManyToManyField(to="category.ExtraProducts", blank=True)
     ordered_date = models.DateTimeField(auto_now_add=True)
@@ -74,6 +70,12 @@ class Order(models.Model):
 
 
 
+=======
+    ordered_date = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.name
+>>>>>>> 2cbef2a1fce6f33b7f97c7a04b60b07df751e1fe
     
 
 
