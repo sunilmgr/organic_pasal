@@ -43,15 +43,17 @@ def register(request):
         first_name = request.data['first_name']
         last_name = request.data['last_name']
         email = request.data['email']
-
-        user = authenticate(username=email, password=raw_password)
-        # user = User.objects.create_user(username, email, raw_password)
-        user = User.objects.get(username=email)
-        user.first_name = first_name
-        user.last_name = last_name
-        user.email = email
-        user.is_active = False
+        
+        user = User.objects.create(
+            username=email,
+            email=email,
+            first_name=first_name,
+            last_name=last_name,
+            is_active=False
+        )
+        user.set_password(raw_password)
         user.save()
+
         current_site = get_current_site(request)
         subject = "Verify your email - Organic Pasal"
         email_template_name = "users/verify_email.txt"
